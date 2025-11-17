@@ -1,0 +1,5 @@
+{
+  "name": "Madagaskar Kids Store",
+  "description": "An online store for children's clothing with a full admin panel for managing products, categories, orders, and contacts. All data is stored locally in your browser.",
+  "requestFramePermissions": []
+}
