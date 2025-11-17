@@ -3,7 +3,6 @@ import { useDataContext } from '../../hooks/useDataContext';
 import { Product } from '../../types';
 import { Plus, Edit, Trash2 } from 'lucide-react';
 
-// Fix for line 31: Define a type for the form state to handle sizes as either string or array.
 type ProductFormState = Omit<Partial<Product>, 'sizes'> & { sizes?: string | string[] };
 
 const AdminProducts = () => {
@@ -42,13 +41,14 @@ const AdminProducts = () => {
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        // Fix for line 46: Check target type directly to allow TypeScript to narrow it correctly.
-        const { name, value } = e.target;
-        
-        if (e.target instanceof HTMLInputElement && e.target.type === 'checkbox') {
-            setCurrentProduct(prev => ({ ...prev, [name]: e.target.checked }));
+        // Fix: Use a type guard to correctly handle checkbox inputs and other form elements.
+        const target = e.target;
+        const name = target.name;
+
+        if (target instanceof HTMLInputElement && target.type === 'checkbox') {
+            setCurrentProduct(prev => ({ ...prev, [name]: target.checked }));
         } else {
-            setCurrentProduct(prev => ({ ...prev, [name]: value }));
+            setCurrentProduct(prev => ({ ...prev, [name]: target.value }));
         }
     };
 
